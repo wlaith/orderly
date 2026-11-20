@@ -1,11 +1,11 @@
-app = "orderly"
+app = "orderly-line"
 primary_region = "fra"
 
 [build]
 
 [env]
   PORT = "3000"
-  BASE_URL = "https://orderly.fly.dev"
+  BASE_URL = "https://orderly-line.fly.dev"
   TRUST_PROXY = "1"
   LITESTREAM_ENDPOINT = "https://fly.storage.tigris.dev"
 
