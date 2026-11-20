@@ -8,7 +8,7 @@ export const isKind = (v: unknown): v is Kind => KINDS.includes(v as Kind)
 export function contactError(kind: Kind, raw: string): string | null {
   const v = raw.trim()
   if (!v) return 'Add a way to reach you.'
-  if (kind === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : 'That email looks incomplete.'
+  if (kind === 'email') return /^[A-Za-z0-9._+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/.test(v) ? null : 'That email looks incomplete.'
   if (kind === 'telegram') return /^@?[a-zA-Z0-9_]{5,32}$/.test(v) ? null : 'Telegram usernames are 5 to 32 letters, numbers or underscores.'
   if (v.replace(/\D/g, '').length < 8) return 'That number looks too short. Include your country code.'
   if (!v.startsWith('+')) return 'Start with your country code, like +962.'
@@ -41,7 +41,7 @@ export function reachUrl(kind: Kind, contact: string, hello: string): string {
     case 'signal': return `https://signal.me/#p/+${digits(contact)}`
     case 'telegram': return `https://t.me/${encodeURIComponent(contact)}`
     case 'phone': return `tel:+${digits(contact)}`
-    case 'email': return `mailto:${contact}?subject=${encodeURIComponent('Your turn')}&body=${text}`
+    case 'email': return `mailto:${encodeURIComponent(contact)}?subject=${encodeURIComponent('Your turn')}&body=${text}`
   }
 }
 

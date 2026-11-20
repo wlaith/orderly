@@ -220,7 +220,7 @@ export function reachUrl(t: LineTicket, host: Host): string {
     case 'Signal': return `https://signal.me/#p/+${digits(v)}`
     case 'Telegram': return `https://t.me/${encodeURIComponent(v.replace(/^@/, ''))}`
     case 'Phone': return `tel:+${digits(v)}`
-    case 'Email': return `mailto:${v}?subject=${encodeURIComponent('Your turn')}&body=${text}`
+    case 'Email': return `mailto:${encodeURIComponent(v)}?subject=${encodeURIComponent('Your turn')}&body=${text}`
   }
 }
 

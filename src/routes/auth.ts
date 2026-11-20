@@ -12,6 +12,18 @@ import { loginPage } from '../views/auth.js'
 
 const TEN_MIN = 600
 const TEN_MIN_MS = 10 * 60 * 1000
+
+/** Login errors travel as codes, so a link can never show text we did not write. */
+const ERRORS = {
+  google: 'Google sign-in did not finish. Try again.',
+  google_off: 'Google sign-in is not set up here.',
+  link: 'That sign-in link has expired or was already used. Ask for a new one.',
+  email_invalid: 'Enter a valid email address.',
+  email_limit: 'Too many sign-in emails. Try again in a few minutes.',
+  email_send: 'We could not send the email. Try again later.',
+} as const
+type ErrorCode = keyof typeof ERRORS
+const fail = (code: ErrorCode) => `/login?error=${code}`
 export interface Pending { sub?: string; email?: string; name?: string }
 export interface Identity { sub?: string; email?: string; name?: string }
 
@@ -24,8 +36,9 @@ export function authRoutes(db: Db): Router {
 
   r.get('/login', (req, res) => {
     if (hostIdOf(req)) return res.redirect('/dashboard')
+    const code = typeof req.query.error === 'string' ? req.query.error : ''
     res.send(loginPage({
-      error: typeof req.query.error === 'string' ? req.query.error : undefined,
+      error: Object.hasOwn(ERRORS, code) ? ERRORS[code as ErrorCode] : undefined,
       sent: req.query.sent === '1',
     }))
   })
@@ -33,7 +46,7 @@ export function authRoutes(db: Db): Router {
   r.post('/logout', (_req, res) => { clearCookie(res, 'session'); res.redirect('/') })
 
   r.get('/login/google', (req, res) => {
-    if (!config.googleId) return res.redirect('/login?error=Google sign-in is not set up here.')
+    if (!config.googleId) return res.redirect(fail('google_off'))
     const state = arctic.generateState(), verifier = arctic.generateCodeVerifier()
     setCookie(res, 'oauth', { state, verifier, link: req.query.link === '1' }, TEN_MIN)
     res.redirect(google().createAuthorizationURL(state, verifier, ['openid', 'profile', 'email']).toString())
@@ -42,7 +55,7 @@ export function authRoutes(db: Db): Router {
   r.get('/auth/callback', async (req, res) => {
     const saved = readCookie<{ state: string; verifier: string; link: boolean }>(req, 'oauth')
     clearCookie(res, 'oauth')
-    if (!saved || saved.state !== req.query.state || typeof req.query.code !== 'string') return res.redirect('/login?error=Google sign-in did not finish. Try again.')
+    if (!saved || saved.state !== req.query.state || typeof req.query.code !== 'string') return res.redirect(fail('google'))
     try {
       const tokens = await google().validateAuthorizationCode(req.query.code, saved.verifier)
       const claims = arctic.decodeIdToken(tokens.idToken()) as { sub: string; name?: string; email?: string; email_verified?: boolean }
@@ -54,30 +67,28 @@ export function authRoutes(db: Db): Router {
       signIn(db, res, { sub: claims.sub, name: claims.name, email: claims.email_verified === true ? claims.email : undefined })
     } catch (err) {
       console.error('google callback failed', err)
-      res.redirect('/login?error=Google sign-in did not finish. Try again.')
+      res.redirect(fail('google'))
     }
   })
 
   r.post('/login/email', async (req, res) => {
     const email = String(req.body?.email ?? '').trim().toLowerCase()
     const problem = contactError('email', email)
-    if (problem) return res.redirect(`/login?error=${encodeURIComponent(problem)}`)
-    if (!emailByIp(req.ip ?? 'unknown') || !emailByAddress(email)) {
-      return res.redirect(`/login?error=${encodeURIComponent('Too many sign-in emails. Try again in a few minutes.')}`)
-    }
+    if (problem) return res.redirect(fail('email_invalid'))
+    if (!emailByIp(req.ip ?? 'unknown') || !emailByAddress(email)) return res.redirect(fail('email_limit'))
     try {
       const token = createLoginLink(db, email)
       await sendSignInLink(email, `${config.baseUrl}/auth/email?token=${encodeURIComponent(token)}`)
       res.redirect('/login?sent=1')
     } catch (err) {
       console.error('sign-in email failed', err)
-      res.redirect(`/login?error=${encodeURIComponent('We could not send the email. Try again later.')}`)
+      res.redirect(fail('email_send'))
     }
   })
 
   r.get('/auth/email', (req, res) => {
     const email = typeof req.query.token === 'string' ? consumeLoginLink(db, req.query.token) : null
-    if (!email) return res.redirect('/login?error=That sign-in link has expired or was already used. Ask for a new one.')
+    if (!email) return res.redirect(fail('link'))
     signIn(db, res, { email })
   })
 
