@@ -5,7 +5,7 @@ primary_region = "fra"
 
 [env]
   PORT = "3000"
-  BASE_URL = "https://orderly-line.fly.dev"
+  BASE_URL = "https://orderly.laithwazani.com"
   TRUST_PROXY = "1"
   LITESTREAM_ENDPOINT = "https://fly.storage.tigris.dev"
 
