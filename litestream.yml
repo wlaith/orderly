@@ -1,0 +1,7 @@
+dbs:
+  - path: ${DB_PATH}
+    replicas:
+      - url: s3://${LITESTREAM_BUCKET}/orderly
+        endpoint: ${LITESTREAM_ENDPOINT}
+        region: auto
+        sync-interval: 1s

@@ -1,0 +1,31 @@
+{
+  "name": "doorin",
+  "private": true,
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "build:web": "npm --prefix web ci && npm --prefix web run build",
+    "start": "node dist/server.js",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "arctic": "^3.7.0",
+    "better-sqlite3": "^13.2.0",
+    "express": "^5.3.0",
+    "nodemailer": "^10.6.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "@types/nodemailer": "^8.0.2",
+    "tsx": "^4.20.0",
+    "typescript": "^7.0.2"
+  }
+}

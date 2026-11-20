@@ -1,0 +1,113 @@
+
+:root,
+[data-doorin-theme='apple'] {
+  --c-bg: 250 248 244;              --c-surface: 255 255 255;
+  --c-ink: 63 0 13;                 --c-ink-2: 107 98 90;             --c-accent: 255 77 46;            --c-accent-2: 255 106 77;         --c-on-accent: 63 0 13;           --c-link: 199 54 26;              --c-tint: 255 216 204;
+  --c-line: 231 225 216;
+  --c-hl: 255 255 255;
+  --c-on-hl: 63 0 13;
+  --c-strong: 63 0 13;
+  --c-on-strong: 250 248 244;
+  --c-strong-accent: 255 77 46;
+  --c-danger: 179 38 30;
+  --c-danger-fill: 179 38 30;
+  --c-success: 14 110 98;           --focus: rgba(63, 0, 13, 0.6);
+  --selection-bg: rgba(255, 77, 46, 0.28);
+  --selection-ink: inherit;
+
+  --font-sans: 'Geist Variable', Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, 'Geist Mono Variable', monospace;
+  --font-display: 'Geist Variable', Geist, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --display-stretch: 100%;
+  --display-weight: 600;
+  --display-transform: none;
+  --display-tracking: -0.022em;
+  --head-font: var(--font-display);
+  --head-stretch: 100%;
+  --head-weight: 600;
+  --head-size: clamp(30px, 1.6vw + 20px, 48px);
+  --head-tracking: -0.026em;
+  --head-word: 0;
+  --logo-font: var(--font-display);
+  --logo-stretch: 100%;
+  --logo-weight: 600;
+  --logo-transform: none;
+  --logo-size: 21px;
+  --logo-tracking: -0.035em;
+  --label-font: var(--font-sans);
+  --label-transform: uppercase;
+  --label-tracking: 0.04em;
+  --label-weight: 600;
+
+  --r-btn: 8px;
+  --r-btn-lg: 8px;
+  --r-card: 18px;
+  --r-panel: 22px;
+  --r-ticket: 20px;
+  --r-band: 12px;
+  --r-field: 8px;
+  --r-chip: 980px;
+  --r-box: 0.26em;
+
+  --btn-h-lg: 52px;
+  --btn-size-lg: 17px;
+  --btn-weight: 400;
+  --btn-justify: center;
+  --btn-bg: #3f000d;                --btn-ring: inset 0 0 0 1px rgba(255, 255, 255, 0.22), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --btn-ink: #faf8f4;
+  --btn-hover-bg: #521a25;
+  --btn-hover-ink: #faf8f4;
+  --btn-hover-ring: inset 0 0 0 1px rgba(255, 255, 255, 0.22), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --btn-dis-bg: rgba(0, 0, 0, 0.06);
+  --btn-dis-ink: rgba(63, 0, 13, 0.36);
+  --btn-dis-ring: none;
+  --q-bg: rgba(118, 118, 128, 0.12);
+  --q-ink: #3f000d;
+  --q-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.08), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --q-hover-bg: rgba(118, 118, 128, 0.2);
+  --q-hover-ink: #3f000d;
+  --q-hover-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.08), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --q-radius: 8px;
+  --g-ink: #c7361a;
+  --g-hover-bg: transparent;
+  --g-hover-deco: underline;
+
+  --field-bg: #ffffff;
+  --field-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+  --field-hover: inset 0 0 0 1px rgba(0, 0, 0, 0.28);
+  --field-focus: inset 0 0 0 1px #3f000d, 0 0 0 4px rgba(63, 0, 13, 0.18);
+  --field-invalid: inset 0 0 0 1px #d70015;
+  --field-invalid-bg: #fff5f5;
+  --field-invalid-focus: inset 0 0 0 1px #d70015, 0 0 0 4px rgba(215, 0, 21, 0.18);
+  --field-hover-bg: #ffffff;
+
+  --card-bg: #ffffff;
+  --card-ring: 0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.05);
+  --panel-ring: 0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.05);
+  --panel-bg: #ffffff;
+
+  --chip-bg: rgba(118, 118, 128, 0.12);
+  --chip-ink: #3f000d;
+  --chip-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.08), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --chip-hover-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.16), inset 0 -9px 13.7px rgba(0, 0, 0, 0.06), inset 0 4px 6.3px rgba(255, 255, 255, 0.25);
+  --chip-on-bg: #ffffff;
+  --chip-on-ink: #3f000d;
+  --chip-on-ring: 0 1px 3px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+
+  --header-bg: rgba(250, 248, 244, 0.8);
+  --header-ink: #3f000d;
+  --header-line: rgba(0, 0, 0, 0.08);
+  --header-h: 52px;
+  --header-filter: saturate(180%) blur(20px);
+
+  --avatar-bg: linear-gradient(180deg, #ffd8cc, #ffb29e);
+  --avatar-ink: #3f000d;
+  --avatar-font: var(--font-display);
+
+  --ticket-shadow: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06)) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.16));
+  --stub-name: 19px;
+  --t-name: min(34px, 8.4vw);
+  --t-place: min(96px, 22vw);
+  --t-band-val: clamp(18px, 4.6vw, 22px);
+  --card-shadow: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)) drop-shadow(0 10px 28px rgba(0, 0, 0, 0.08));
+}
